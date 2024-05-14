@@ -13,19 +13,19 @@ const UserRoutes = require('./routes/user')
 const app = express()
 
 app.use(express.json())
-app.use(express.static('public'))
-app.use(express.static('files'))
 
 app.use(cors({
     origin: ' https://workoutapi-v3lm.onrender.com', // Allow requests from this origin
     credentials: true, // Allow credentials (e.g. cookies) to be sent with the request
   }));
 
-app.use((req, res, next) =>{
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://workoutapi-v3lm.onrender.com');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     console.log(req.path, req.method)
-    next()
-})
-
+    next();
+  });
 
 
 app.use('/api/workouts' ,workoutRoutes)
